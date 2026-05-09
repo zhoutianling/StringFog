@@ -42,16 +42,19 @@ StringFog和混淆完全不冲突，也不需要配置反混淆，实际上Strin
 **jcenter已经废弃，3.0+版本取消发布**
 
 ##### 1、在根目录build.gradle中引入插件依赖。
+Current fork release example uses JitPack and tag `v5.3.0-agp9`.
+
 ```groovy
 buildscript {
     repositories {
         mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
     dependencies {
         ...
-        classpath 'com.github.megatronking.stringfog:gradle-plugin:5.2.0'
+        classpath 'com.github.zhoutianling.StringFog:gradle-plugin:v5.3.0-agp9'
         // 选用加解密算法库，默认实现了xor算法，也可以使用自己的加解密库。
-        classpath 'com.github.megatronking.stringfog:xor:5.0.0'
+        classpath 'com.github.zhoutianling.StringFog:xor:v5.3.0-agp9'
     }
 }
 ```
@@ -84,10 +87,7 @@ stringfog {
 
 kts中配置参考
 ```kotlin
-plugins {
-    //...lib or application
-    id("stringfog")
-}
+// Use the buildscript classpath from the root project, then apply the plugin here.
 apply(plugin = "stringfog")
 
 configure<StringFogExtension> {
@@ -109,7 +109,7 @@ configure<StringFogExtension> {
 dependencies {
       ...
       // 这里要和上面选用的加解密算法库一致，用于运行时解密。
-      compile 'com.github.megatronking.stringfog:xor:5.0.0'
+      implementation 'com.github.zhoutianling.StringFog:xor:v5.3.0-agp9'
 }
 ```
 
